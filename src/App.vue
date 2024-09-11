@@ -14,13 +14,14 @@ const updateText = (newText: string) => {
   text.value = newText;
 };
 
-var qrCode = "";
+var qrCode = useQRCode("");
 
 // watch for changes in the text value
-watch(text, (newText) => {
+watch(text, () => {
   qrCode = useQRCode(text, {
     errorCorrectionLevel: "H",
     margin: 3,
+    width: 500,
   });
 });
 </script>
@@ -38,7 +39,6 @@ watch(text, (newText) => {
   justify-content: space-around;
   align-items: start;
   width: 100%;
-  height: 100vh;
 }
 
 .textbox,
