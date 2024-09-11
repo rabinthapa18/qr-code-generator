@@ -1,6 +1,14 @@
 <template>
   <div class="textbox-container">
-    <textarea v-model="text" placeholder="Enter text to generate QR code" />
+    <textarea
+      cols="50"
+      rows="10"
+      v-model="text"
+      placeholder="Enter text to generate QR code"
+    />
+    <button @click="generateQRCode" class="generate-button">
+      Generate QR Code
+    </button>
   </div>
 </template>
 
@@ -11,24 +19,25 @@ const text = ref("");
 
 // define props and emits
 defineProps<{ text: string }>();
-const emit = defineEmits(["update:text"]);
+const emit = defineEmits(["update:text", "generateQRCode"]);
 
 const emitUpdate = (newText: string) => {
   emit("update:text", newText);
 };
 
-// watch for changes in the text value
-watch(text, (newText) => {
-  emitUpdate(newText);
-});
+const generateQRCode = () => {
+  emitUpdate(text.value);
+};
 </script>
 
 <style scoped>
 .textbox-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  gap: 1rem;
 }
 
 .text-input {
@@ -37,5 +46,19 @@ watch(text, (newText) => {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.generate-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #9251f9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.generate-button:hover {
+  background-color: #7b3dbf;
 }
 </style>

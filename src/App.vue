@@ -35,18 +35,15 @@ watch(text, (newText) => {
 <style scoped>
 .container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
+  align-items: start;
   width: 100%;
+  height: 100vh;
 }
 
 .textbox,
 .qrcode-display {
-  width: 48%;
+  min-width: 48%;
   box-sizing: border-box;
-}
-
-.textbox {
-  margin-right: 2%;
 }
 </style>
