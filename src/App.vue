@@ -2,19 +2,35 @@
 // importing custom components
 import TextBox from "./components/TextBox.vue";
 import QRCodeDisplay from "./components/QRCodeDisplay.vue";
+import Header from "./components/Header.vue";
 
 // importing external libraries
 import { useQRCode } from "@vueuse/integrations/useQRCode";
 
+// importing Vue Composition API functions
 import { ref, watch } from "vue";
 
+// define variables
 const text = ref("");
+var qrCode = useQRCode("");
+enum headerMessages {
+  QRCodeGenerator = "QR Code Generator",
+  QRCodeScanner = "QR Code Scanner",
+}
+var isGenerator = true;
+var headerMessage = ref(headerMessages.QRCodeGenerator);
 
+// define functions
 const updateText = (newText: string) => {
   text.value = newText;
 };
 
-var qrCode = useQRCode("");
+const toggleAction = (value: boolean) => {
+  isGenerator = value;
+  headerMessage.value = isGenerator
+    ? headerMessages.QRCodeGenerator
+    : headerMessages.QRCodeScanner;
+};
 
 // watch for changes in the text value
 watch(text, () => {
@@ -27,6 +43,12 @@ watch(text, () => {
 </script>
 
 <template>
+  <Header
+    :message="headerMessage"
+    @changeAction="toggleAction"
+    :isGenerator="isGenerator"
+  />
+
   <div class="container">
     <TextBox v-model:text="text" @update:text="updateText" class="textbox" />
     <QRCodeDisplay :qrCode="qrCode" class="qrcode-display" />
