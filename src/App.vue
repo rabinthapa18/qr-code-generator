@@ -2,6 +2,7 @@
 // importing custom components
 import TextBox from "./components/TextBox.vue";
 import QRCodeDisplay from "./components/QRCodeDisplay.vue";
+import Camera from "./components/Camera.vue";
 import Header from "./components/Header.vue";
 
 // importing external libraries
@@ -50,8 +51,22 @@ watch(text, () => {
   />
 
   <div class="container">
-    <TextBox v-model:text="text" @update:text="updateText" class="textbox" />
-    <QRCodeDisplay :qrCode="qrCode" class="qrcode-display" />
+    <TextBox
+      v-if="isGenerator"
+      v-model:text="text"
+      :isDisabled="!isGenerator"
+      @update:text="updateText"
+      class="textbox"
+    />
+    <QRCodeDisplay v-if="isGenerator" :qrCode="qrCode" class="qrcode-display" />
+    <TextBox
+      v-if="!isGenerator"
+      v-model:text="text"
+      :isDisabled="true"
+      @update:text="updateText"
+      class="textbox"
+    />
+    <Camera v-if="!isGenerator" class="qrcode-display" />
   </div>
 </template>
 

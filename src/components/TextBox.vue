@@ -5,8 +5,9 @@
       rows="10"
       v-model="text"
       placeholder="Enter text to generate QR code"
+      :disabled="isDisabled"
     />
-    <button @click="generateQRCode" class="generate-button">
+    <button v-if="!isDisabled" @click="generateQRCode" class="generate-button">
       Generate QR Code
     </button>
   </div>
@@ -18,7 +19,10 @@ import { ref } from "vue";
 const text = ref("");
 
 // define props and emits
-defineProps<{ text: string }>();
+defineProps<{
+  text: string;
+  isDisabled: boolean;
+}>();
 const emit = defineEmits(["update:text", "generateQRCode"]);
 
 const emitUpdate = (newText: string) => {
