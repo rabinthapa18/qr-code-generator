@@ -62,14 +62,14 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  border-radius: 15px;
   overflow: hidden;
 }
 
 .video {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: 500px;
+  aspect-ratio: calc(16 / 9);
   object-fit: cover;
+  border-radius: 15px;
 }
 </style>

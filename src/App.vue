@@ -13,7 +13,7 @@ import { ref, watch } from "vue";
 
 // define variables
 const text = ref("");
-var scannedText = ref("");
+var scannedText = ref("Scanning...");
 var qrCode = useQRCode("");
 enum headerMessages {
   QRCodeGenerator = "QR Code Generator",
@@ -68,7 +68,7 @@ watch(text, () => {
       @update:scannedText="showScannedText"
       class="qrcode-display"
     />
-    <p v-if="!isGenerator" class="qr-result">QR Code: {{ scannedText }}></p>
+    <p v-if="!isGenerator" class="qr-result">QR Code: {{ scannedText }}</p>
   </div>
 </template>
 
@@ -78,6 +78,7 @@ watch(text, () => {
   justify-content: space-around;
   align-items: start;
   width: 100%;
+  padding: 20px;
 }
 
 .textbox,
