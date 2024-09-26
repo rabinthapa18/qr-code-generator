@@ -5,9 +5,8 @@
       rows="10"
       v-model="text"
       placeholder="Enter text to generate QR code"
-      :disabled="isDisabled"
     />
-    <button v-if="!isDisabled" @click="generateQRCode" class="generate-button">
+    <button @click="generateQRCode" class="generate-button">
       Generate QR Code
     </button>
   </div>
@@ -21,7 +20,6 @@ const text = ref("");
 // define props and emits
 defineProps<{
   text: string;
-  isDisabled: boolean;
 }>();
 const emit = defineEmits(["update:text", "generateQRCode"]);
 

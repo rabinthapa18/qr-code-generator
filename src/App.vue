@@ -13,6 +13,7 @@ import { ref, watch } from "vue";
 
 // define variables
 const text = ref("");
+var scannedText = ref("");
 var qrCode = useQRCode("");
 enum headerMessages {
   QRCodeGenerator = "QR Code Generator",
@@ -31,6 +32,10 @@ const toggleAction = (value: boolean) => {
   headerMessage.value = isGenerator
     ? headerMessages.QRCodeGenerator
     : headerMessages.QRCodeScanner;
+};
+
+const showScannedText = (newText: string) => {
+  scannedText.value = newText;
 };
 
 // watch for changes in the text value
@@ -54,19 +59,16 @@ watch(text, () => {
     <TextBox
       v-if="isGenerator"
       v-model:text="text"
-      :isDisabled="!isGenerator"
       @update:text="updateText"
       class="textbox"
     />
     <QRCodeDisplay v-if="isGenerator" :qrCode="qrCode" class="qrcode-display" />
-    <TextBox
+    <Camera
       v-if="!isGenerator"
-      v-model:text="text"
-      :isDisabled="true"
-      @update:text="updateText"
-      class="textbox"
+      @update:scannedText="showScannedText"
+      class="qrcode-display"
     />
-    <Camera v-if="!isGenerator" class="qrcode-display" />
+    <p v-if="!isGenerator" class="qr-result">QR Code: {{ scannedText }}></p>
   </div>
 </template>
 
@@ -82,5 +84,14 @@ watch(text, () => {
 .qrcode-display {
   min-width: 48%;
   box-sizing: border-box;
+}
+.qr-result {
+  position: absolute;
+  bottom: 20px;
+  color: white;
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 8px;
 }
 </style>
