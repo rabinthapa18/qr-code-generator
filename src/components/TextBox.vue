@@ -34,7 +34,7 @@
       @click="generateQRCode" 
       class="generate-button"
       :disabled="!text.trim()"
-      :class="{ 'pulse': text.trim() }"
+      :class="{ 'clicked': isClicked }"
     >
       <div class="button-content">
         <svg class="button-icon" viewBox="0 0 24 24" fill="none">
@@ -57,6 +57,7 @@
 import { ref } from "vue";
 
 const text = ref("");
+const isClicked = ref(false);
 
 defineProps<{
   text: string;
@@ -70,7 +71,13 @@ const handleInput = () => {
 
 const generateQRCode = () => {
   if (text.value.trim()) {
-    emit("update:text", text.value);
+    isClicked.value = true;
+    emit("generateQRCode");
+    
+    // Remove the clicked class after animation
+    setTimeout(() => {
+      isClicked.value = false;
+    }, 1000);
   }
 };
 </script>
@@ -217,8 +224,9 @@ const generateQRCode = () => {
   box-shadow: none;
 }
 
-.generate-button.pulse {
-  animation: pulse 2s infinite;
+.generate-button.clicked {
+  background: var(--gradient-secondary);
+  animation: gradientShift 1s ease-out;
 }
 
 .button-content {
@@ -252,6 +260,18 @@ const generateQRCode = () => {
 
 .generate-button:hover:not(:disabled) .button-shimmer {
   left: 100%;
+}
+
+@keyframes gradientShift {
+  0% {
+    background: var(--gradient-primary);
+  }
+  50% {
+    background: var(--gradient-secondary);
+  }
+  100% {
+    background: var(--gradient-primary);
+  }
 }
 
 /* Mobile Responsive */

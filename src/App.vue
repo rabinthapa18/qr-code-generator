@@ -4,9 +4,10 @@ import QRCodeDisplay from "./components/QRCodeDisplay.vue";
 import Camera from "./components/Camera.vue";
 import Header from "./components/Header.vue";
 import { useQRCode } from "@vueuse/integrations/useQRCode";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
 const text = ref("");
+const qrText = ref("");
 const scannedText = ref("Scanning...");
 let qrCode = useQRCode("");
 
@@ -22,6 +23,17 @@ const updateText = (newText: string) => {
   text.value = newText;
 };
 
+const generateQRCode = () => {
+  if (text.value.trim()) {
+    qrText.value = text.value;
+    qrCode = useQRCode(text.value, {
+      errorCorrectionLevel: "H",
+      margin: 3,
+      width: 500,
+    });
+  }
+};
+
 const toggleAction = (value: boolean) => {
   isGenerator.value = value;
   headerMessage.value = value
@@ -32,14 +44,6 @@ const toggleAction = (value: boolean) => {
 const showScannedText = (newText: string) => {
   scannedText.value = newText;
 };
-
-watch(text, () => {
-  qrCode = useQRCode(text.value, {
-    errorCorrectionLevel: "H",
-    margin: 3,
-    width: 500,
-  });
-});
 </script>
 
 <template>
@@ -64,6 +68,7 @@ watch(text, () => {
               <TextBox
                 v-model:text="text"
                 @update:text="updateText"
+                @generateQRCode="generateQRCode"
                 class="text-input-section"
               />
               <QRCodeDisplay 
