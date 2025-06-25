@@ -5,7 +5,10 @@
       rows="10"
       v-model="text"
       placeholder="Enter text to generate QR code"
+      class="text-input"
+      maxlength="500"
     />
+    <div class="char-counter">{{ text.length }} / 500</div>
     <button @click="generateQRCode" class="generate-button">
       Generate QR Code
     </button>
@@ -39,7 +42,7 @@ const generateQRCode = () => {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .text-input {
@@ -62,5 +65,12 @@ const generateQRCode = () => {
 
 .generate-button:hover {
   background-color: #7b3dbf;
+}
+
+.char-counter {
+  width: 100%;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #666;
 }
 </style>
