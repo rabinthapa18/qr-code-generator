@@ -11,20 +11,19 @@
           </svg>
           Enter your text
         </label>
-        <div class="char-counter" :class="{ 'warning': text.length > 400, 'danger': text.length >= 500 }">
-          {{ text.length }} / 500
+        <div class="char-counter" :class="{ 'warning': localText.length > 400, 'danger': localText.length >= 500 }">
+          {{ localText.length }} / 500
         </div>
       </div>
       
       <div class="textarea-wrapper">
         <textarea
           id="text-input"
-          v-model="text"
+          v-model="localText"
           placeholder="Type your message, URL, or any text you want to convert to QR code..."
           class="text-input"
           maxlength="500"
           rows="8"
-          @input="handleInput"
         />
         <div class="input-glow"></div>
       </div>
@@ -33,7 +32,7 @@
     <button 
       @click="generateQRCode" 
       class="generate-button"
-      :disabled="!text.trim()"
+      :disabled="!localText.trim()"
       :class="{ 'clicked': isClicked }"
     >
       <div class="button-content">
@@ -54,23 +53,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-const text = ref("");
 const isClicked = ref(false);
 
-defineProps<{
+const props = defineProps<{
   text: string;
 }>();
 
 const emit = defineEmits(["update:text", "generateQRCode"]);
 
-const handleInput = () => {
-  emit("update:text", text.value);
-};
+const localText = computed({
+  get: () => props.text,
+  set: (value) => emit("update:text", value),
+});
 
 const generateQRCode = () => {
-  if (text.value.trim()) {
+  if (localText.value.trim()) {
     isClicked.value = true;
     emit("generateQRCode");
     

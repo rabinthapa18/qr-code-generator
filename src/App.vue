@@ -71,10 +71,11 @@ const showScannedText = (newText: string) => {
                 @generateQRCode="generateQRCode"
                 class="text-input-section"
               />
-              <QRCodeDisplay 
-                :qrCode="qrCode" 
-                class="qr-display-section"
-              />
+              <div class="qr-display-section">
+                <QRCodeDisplay 
+                  :qrCode="qrCode" 
+                />
+              </div>
             </div>
           </div>
 
