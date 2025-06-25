@@ -9,7 +9,7 @@ import { ref } from "vue";
 const text = ref("");
 const qrText = ref("");
 const scannedText = ref("Scanning...");
-let qrCode = useQRCode("");
+const qrCode = ref("");
 
 enum headerMessages {
   QRCodeGenerator = "QR Code Generator",
@@ -26,11 +26,12 @@ const updateText = (newText: string) => {
 const generateQRCode = () => {
   if (text.value.trim()) {
     qrText.value = text.value;
-    qrCode = useQRCode(text.value, {
+    const qrCodeResult = useQRCode(text.value, {
       errorCorrectionLevel: "H",
       margin: 3,
       width: 500,
     });
+    qrCode.value = qrCodeResult.value;
   }
 };
 
