@@ -10,9 +10,7 @@
         />
         <div class="qr-overlay">
           <button class="expand-button" @click="toggleDialog(true)">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="2"/>
-            </svg>
+            <img src="../assets/expand-icon.svg" alt="">
           </button>
         </div>
       </div>
@@ -23,15 +21,7 @@
     
     <div v-else class="empty-state">
       <div class="empty-icon">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7z" stroke="currentColor" stroke-width="2"/>
-          <rect x="14" y="14" width="2" height="2" fill="currentColor"/>
-          <rect x="16" y="16" width="2" height="2" fill="currentColor"/>
-          <rect x="18" y="14" width="2" height="2" fill="currentColor"/>
-          <rect x="16" y="18" width="2" height="2" fill="currentColor"/>
-          <rect x="18" y="20" width="2" height="2" fill="currentColor"/>
-          <rect x="20" y="16" width="2" height="2" fill="currentColor"/>
-        </svg>
+       <img src="../assets/qr-placeholder-icon.svg" alt="">
       </div>
       <h3 class="empty-title">QR Code Preview</h3>
       <p class="empty-description">Your QR code will appear here once you enter some text</p>
@@ -45,10 +35,7 @@
         <div class="dialog-header">
           <h3>QR Code</h3>
           <button class="close-button" @click="toggleDialog(false)">
-            <svg viewBox="0 0 24 24" fill="none">
-              <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
-              <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
-            </svg>
+            <img src="../assets/close-icon.svg" alt="">
           </button>
         </div>
         
@@ -59,11 +46,7 @@
           
           <div class="dialog-actions">
             <button class="download-button" @click="downloadQRCode">
-              <svg class="download-icon" viewBox="0 0 24 24" fill="none">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2"/>
-                <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2"/>
-                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
-              </svg>
+             <img src="../assets/download-icon.svg" alt="" class="download-icon">
               Download QR Code
             </button>
           </div>
@@ -178,7 +161,7 @@ const downloadQRCode = () => {
   transform: scale(1.1);
 }
 
-.expand-button svg {
+.expand-button img {
   width: 24px;
   height: 24px;
 }
@@ -283,7 +266,6 @@ const downloadQRCode = () => {
 .close-button {
   background: none;
   border: none;
-  color: var(--text-muted);
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 8px;
@@ -295,7 +277,7 @@ const downloadQRCode = () => {
   color: var(--text-primary);
 }
 
-.close-button svg {
+.close-button img {
   width: 20px;
   height: 20px;
 }
